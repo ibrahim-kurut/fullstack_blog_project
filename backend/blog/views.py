@@ -24,6 +24,11 @@ class PostViewSet(ModelViewSet):
 class CommentViewSet(ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+    # Automatically assign the owner who created the comment.
+        serializer.save(user=self.request.user)
 
 
 class CategoryViewSet(ModelViewSet):

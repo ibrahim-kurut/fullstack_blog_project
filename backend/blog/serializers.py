@@ -5,7 +5,7 @@ from .models import Post, Comment, Like, Category
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
-        fields = '__all__'
+        exclude = ['user']
 
     # View username in the Comment
     username = serializers.SerializerMethodField()
