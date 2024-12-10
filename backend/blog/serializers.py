@@ -21,6 +21,17 @@ class PostSerializer(serializers.ModelSerializer):
         return obj.user.username
 
 
+    # show category name in post 
+    category_name = serializers.SerializerMethodField()
+    def get_category_name(self, obj):
+        return obj.category.name
+
+
+
+    # View all comments related to post
+    comments = CommentSerializer(many=True, read_only=True)
+
+
 class LikesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Like
