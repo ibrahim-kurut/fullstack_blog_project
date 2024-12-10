@@ -7,6 +7,10 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = '__all__'
 
+    # View username in the Comment
+    username = serializers.SerializerMethodField()
+    def get_username(self, obj):
+        return obj.user.username
 
 
 class PostSerializer(serializers.ModelSerializer):
