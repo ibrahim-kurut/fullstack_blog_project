@@ -8,11 +8,17 @@ class CommentSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+
 class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = '__all__'
+        exclude = ['user']
+
+    # View username in the post
+    username = serializers.SerializerMethodField()
+    def get_username(self, obj):
+        return obj.user.username
 
 
 class LikesSerializer(serializers.ModelSerializer):

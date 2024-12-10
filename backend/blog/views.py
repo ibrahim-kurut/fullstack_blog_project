@@ -13,6 +13,12 @@ from rest_framework.permissions import IsAuthenticated
 class PostViewSet(ModelViewSet):
     queryset = Post.objects.all().order_by('-id')
     serializer_class = PostSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+    # Automatically assign the owner who created the post.
+        serializer.save(user=self.request.user)
+
 
 
 class CommentViewSet(ModelViewSet):
