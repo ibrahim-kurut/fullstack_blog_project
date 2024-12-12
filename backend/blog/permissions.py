@@ -12,9 +12,6 @@ class IsAuthenticatedOrReadOnly(BasePermission):
 
 
 
-
-from rest_framework.permissions import BasePermission, SAFE_METHODS
-
 class IsOwnerOrReadOnly(BasePermission):
     """
     To allow reading operations for everyone, but the update and delete post of the owner only
@@ -24,4 +21,12 @@ class IsOwnerOrReadOnly(BasePermission):
             return True
         # Allowing modification and deletion only if the current user is the owner of the post
         return obj.user == request.user
+
+
+class IsAdminOrReadOnly(BasePermission):
+    def has_permission(self, request, view):
+        if request.method in SAFE_METHODS:
+            return True
+        # Allow the edit and deletion only for administrators
+        return request.user.is_staff or request.user.is_superuser
 

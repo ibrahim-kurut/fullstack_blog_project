@@ -6,9 +6,9 @@ from .models import Post, Comment, Like, Category
 
 from .serializers import PostSerializer, CommentSerializer, LikesSerializer, CategorySerializer
 
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
-from .permissions import IsAuthenticatedOrReadOnly , IsOwnerOrReadOnly
+from .permissions import IsAuthenticatedOrReadOnly , IsOwnerOrReadOnly, IsAdminOrReadOnly
 
 # Create your views here.
 
@@ -36,6 +36,7 @@ class CommentViewSet(ModelViewSet):
 class CategoryViewSet(ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    permission_classes = [IsAdminOrReadOnly]
     
 
 
