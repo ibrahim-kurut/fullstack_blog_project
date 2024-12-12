@@ -8,12 +8,14 @@ from .serializers import PostSerializer, CommentSerializer, LikesSerializer, Cat
 
 from rest_framework.permissions import IsAuthenticated
 
+from .permissions import IsAuthenticatedOrReadOnly
+
 # Create your views here.
 
 class PostViewSet(ModelViewSet):
     queryset = Post.objects.all().order_by('-id')
     serializer_class = PostSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def perform_create(self, serializer):
     # Automatically assign the owner who created the post.
