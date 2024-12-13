@@ -13,12 +13,16 @@ from .permissions import IsAuthenticatedOrReadOnly , IsOwnerOrReadOnly, IsAdminO
 from rest_framework.response import Response
 from rest_framework import status
 
+
+from .pagination import SmallPagination
+
 # Create your views here.
 
 class PostViewSet(ModelViewSet):
     queryset = Post.objects.all().order_by('-id')
     serializer_class = PostSerializer
     permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    pagination_class = SmallPagination
 
     def perform_create(self, serializer):
     # Automatically assign the owner who created the post.
