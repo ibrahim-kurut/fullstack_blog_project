@@ -16,14 +16,38 @@ from rest_framework import status
 
 from .pagination import SmallPagination
 
+from django_filters.rest_framework import FilterSet, CharFilter
+
+from django_filters.rest_framework import DjangoFilterBackend
+
+# Q sınıfı, sorguları dinamik bir şekilde birleştirmek için kullanılır
+from django.db.models import Q 
+
+
 # Create your views here.
+
+# Birden fazla alanda arama yapabilmek için özel bir filtre oluşturma
+class PostFilter(FilterSet):
+    search = CharFilter(method='filter_by_title_or_category')  # Özel filtre yöntemi tanımlandı
+
+    class Meta:
+        model = Post # Filtrelerin uygulanacağı model
+        fields = ['search']  # Filtreleme için kullanılabilecek alanlar
+
+    # Özel filtre yöntemi: Başlık veya kategori adına göre filtreleme yapar
+    def filter_by_title_or_category(self, queryset, name, value):
+         # Q ile başlıkta veya kategori adında arama yapılır (büyük/küçük harf duyarsız)
+        return queryset.filter(
+            Q(title__icontains=value) | Q(category__name__icontains=value)
+        )
 
 class PostViewSet(ModelViewSet):
     queryset = Post.objects.all().order_by('-id')
     serializer_class = PostSerializer
     permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     pagination_class = SmallPagination
-
+    filter_backends = [DjangoFilterBackend]  
+    filterset_class = PostFilter  
     def perform_create(self, serializer):
     # Automatically assign the owner who created the post.
         serializer.save(user=self.request.user)
