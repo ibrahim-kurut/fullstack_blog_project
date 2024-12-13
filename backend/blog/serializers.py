@@ -44,7 +44,11 @@ class PostSerializer(serializers.ModelSerializer):
 class LikesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Like
-        fields = '__all__'
+        exclude = ['user']
+
+    username = serializers.SerializerMethodField()
+    def get_username(self, obj):
+        return obj.user.username
 
 
 class CategorySerializer(serializers.ModelSerializer):

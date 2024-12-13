@@ -10,6 +10,9 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 from .permissions import IsAuthenticatedOrReadOnly , IsOwnerOrReadOnly, IsAdminOrReadOnly
 
+from rest_framework.response import Response
+from rest_framework import status
+
 # Create your views here.
 
 class PostViewSet(ModelViewSet):
@@ -44,3 +47,29 @@ class CategoryViewSet(ModelViewSet):
 class LikesViewSet(ModelViewSet):
     queryset = Like.objects.all()
     serializer_class = LikesSerializer
+    permission_classes = [IsAuthenticated]
+
+
+    def perform_create(self, serializer):
+    # Automatically assign the owner who created the comment.
+        serializer.save(user=self.request.user)
+
+
+    def create(self, request, *args, **kwargs):
+        # Get the post and the user
+        post_id = request.data.get('post') # get post id
+        user = request.user # get user
+
+        if not post_id:
+            return Response({"detail": "Post ID is required."}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            # Verification if the like already exists
+            like = Like.objects.get(post_id=post_id, user=user)
+            # If exist, delete it
+            like.delete()
+            return Response({"detail": "Like removed successfully."}, status=status.HTTP_204_NO_CONTENT)
+        except Like.DoesNotExist:
+            # If not exist, create it
+            Like.objects.create(post_id=post_id, user=user)
+            return Response({"detail": "Like added successfully."}, status=status.HTTP_201_CREATED)
