@@ -12,7 +12,7 @@ const Navbar = ({ toggleColor, color }) => {
                 <div className="flex space-x-4">
                     <Link to="/" className="text-gray-800 hover:text-blue-500">home</Link>
                     <Link to="/about" className="text-gray-800 hover:text-blue-500">about</Link>
-                    <Link to="/blog" className="text-gray-800 hover:text-blue-500">blogs</Link>
+                    <Link to="/posts" className="text-gray-800 hover:text-blue-500">posts</Link>
                 </div>
                 <div className="flex space-x-4">
                     <div>

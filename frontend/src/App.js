@@ -4,8 +4,8 @@ import Navbar from './components/Navbar';
 import { Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
-import BlogsPage from './pages/BlogsPage';
 import LoginPage from './pages/LoginPage';
+import PostPage from './pages/PostsPage';
 
 
 
@@ -32,7 +32,7 @@ function Main() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
-          <Route path="/blog" element={<BlogsPage />} />
+          <Route path="/posts" element={<PostPage />} />
           <Route path="/login" element={<LoginPage color={color} />} />
         </Routes>
       </main>
