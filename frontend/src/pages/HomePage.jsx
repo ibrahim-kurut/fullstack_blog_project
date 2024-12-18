@@ -1,9 +1,13 @@
 import React from 'react'
+import HomeBanner from '../components/HomeBanner'
 
 const HomePage = () => {
     return (
-        <div className="container mx-auto">
-            HomePage
+        <div>
+            <HomeBanner />
+            <div className="container mx-auto">
+                content
+            </div>
         </div>
     )
 }
