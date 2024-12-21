@@ -7,13 +7,13 @@ const posts = [
             {
                 "id": 1,
                 "username": "yaman kurut",
-                "content": "nice",
+                "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia odio saepe voluptatibus labore dolor alias.",
                 "created_at": "2024-12-18T09:02:52.830039Z",
                 "post": 1
             },
             {
                 "id": 2,
-                "username": "yaman kurut",
+                "username": "ceylan kurut",
                 "content": "nice",
                 "created_at": "2024-12-18T09:02:52.830039Z",
                 "post": 1
