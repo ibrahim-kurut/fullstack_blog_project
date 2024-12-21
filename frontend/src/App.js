@@ -9,6 +9,7 @@ import PostPage from './pages/PostsPage';
 import PostDetail from './pages/PostDetail';
 
 import { ToastContainer } from 'react-toastify';
+import SignUp from './pages/SignUp';
 
 
 function App() {
@@ -35,8 +36,9 @@ function Main() {
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/posts" element={<PostPage />} />
-          <Route path="/login" element={<LoginPage color={color} />} />
           <Route path="/post/:id" element={<PostDetail />} />
+          <Route path="/login" element={<LoginPage color={color} />} />
+          <Route path="/signup" element={<SignUp />} />
         </Routes>
       </main>
     </div>
