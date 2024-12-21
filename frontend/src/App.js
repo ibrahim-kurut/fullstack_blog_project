@@ -8,12 +8,13 @@ import LoginPage from './pages/LoginPage';
 import PostPage from './pages/PostsPage';
 import PostDetail from './pages/PostDetail';
 
-
+import { ToastContainer } from 'react-toastify';
 
 
 function App() {
   return (
     <>
+      <ToastContainer theme="colored" />
       <Main />
     </>
   );

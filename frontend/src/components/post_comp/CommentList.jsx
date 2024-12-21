@@ -1,8 +1,7 @@
 import React from 'react'
 import { MdEditSquare, MdDelete } from "react-icons/md";
 
-const CommentList = ({ post }) => {
-    const comments = post?.comments
+const CommentList = ({ comments }) => {
 
     return (
         <div className="container mx-auto border mt-3 border-gray-600 rounded-lg p-4 shadow-sm w-full max-w-2xl">
