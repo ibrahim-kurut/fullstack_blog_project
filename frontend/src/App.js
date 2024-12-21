@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import LoginPage from './pages/LoginPage';
 import PostPage from './pages/PostsPage';
+import PostDetail from './pages/PostDetail';
 
 
 
@@ -34,6 +35,7 @@ function Main() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/posts" element={<PostPage />} />
           <Route path="/login" element={<LoginPage color={color} />} />
+          <Route path="/post/:id" element={<PostDetail />} />
         </Routes>
       </main>
     </div>

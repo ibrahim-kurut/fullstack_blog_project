@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const PostCard = ({ post }) => {
     // Date format
@@ -18,17 +19,17 @@ const PostCard = ({ post }) => {
             </div>
 
             {/* Responsive image */}
-            <div className="img rounded w-full h-full flex justify-center mb-4">
+            <Link to={`/post/${post?.id}`} className="img rounded w-full h-full flex justify-center mb-4">
                 <img
                     src={post?.image}
                     alt={post?.title}
                     className="w-full h-auto rounded-lg object-fill"
                 />
-            </div>
+            </Link>
 
             <div className="text-start w-full">
                 <div className="flex justify-between mb-2 w-full">
-                    <h2 className="text-xl font-bold mb-2 flex-1">{post?.title}</h2>
+                    <Link to={`/post/${post?.id}`} className="text-xl font-bold mb-2 flex-1">{post?.title}</Link>
                     <p className="text-gray-500">{formattedDate}</p>
                 </div>
                 <h2 className="mb-2">{get_a_short_comment(post?.content)}</h2>

@@ -10,6 +10,13 @@ const posts = [
                 "content": "nice",
                 "created_at": "2024-12-18T09:02:52.830039Z",
                 "post": 1
+            },
+            {
+                "id": 2,
+                "username": "yaman kurut",
+                "content": "nice",
+                "created_at": "2024-12-18T09:02:52.830039Z",
+                "post": 1
             }
         ],
         "likes_count": 1,
@@ -31,7 +38,15 @@ const posts = [
                 "content": "great tutorial",
                 "created_at": "2024-12-18T10:00:52.830039Z",
                 "post": 2
+            },
+            {
+                "id": 3,
+                "username": "yara mohamed",
+                "content": "nice",
+                "created_at": "2024-12-18T10:01:52.830039Z",
+                "post": 2
             }
+
         ],
         "likes_count": 3,
         "title": "javascript basics",
