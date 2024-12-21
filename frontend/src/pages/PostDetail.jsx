@@ -16,7 +16,7 @@ const PostDetail = () => {
     const [commentModel, setCommentModel] = useState(false)
     const [textComment, setTextComment] = useState('')
     const [comments, setComments] = useState(post?.comments || []);
-
+    const [likes, setLikes] = useState(post?.likes_count || 0);
 
     if (!post) {
         return <div className="text-center mt-5">Post not found</div>;
@@ -44,6 +44,12 @@ const PostDetail = () => {
         }
     };
 
+    // handel like
+    const handleLike = () => {
+        setLikes((prevLikes) => prevLikes + 1);
+        toast.success("The post was liked.");
+    }
+
     return (
         <div className="container mx-auto">
             {/* post detail card */}
@@ -52,9 +58,11 @@ const PostDetail = () => {
             {/* like and comment */}
             <div className="container mx-auto px-4 md:px-0 flex justify-between md:w-1/2">
                 <div className="flex justify-start gap-5">
-                    <button className="flex gap-1">
+                    <button
+                        onClick={handleLike}
+                        className="flex gap-1">
                         <BiLike size={22} />
-                        <span>{post?.likes_count}</span>
+                        <span>{likes}</span>
                     </button>
                     <button
                         onClick={() => setCommentModel(true)}
