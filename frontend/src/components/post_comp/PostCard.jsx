@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const PostCard = ({ post }) => {
+const PostCard = ({ post, showShortComment }) => {
     // Date format
     const formattedDate = new Date(post?.created_at).toLocaleDateString();
 
@@ -32,7 +32,12 @@ const PostCard = ({ post }) => {
                     <Link to={`/post/${post?.id}`} className="text-xl font-bold mb-2 flex-1">{post?.title}</Link>
                     <p className="text-gray-500">{formattedDate}</p>
                 </div>
-                <h2 className="mb-2">{get_a_short_comment(post?.content)}</h2>
+                {/* Show full comment or short comment */}
+                {showShortComment ?
+                    (<h2 className="mb-2">{get_a_short_comment(post?.content)}</h2>)
+                    :
+                    ((<h2 className="mb-2">{post?.content}</h2>))
+                }
             </div>
         </div>
     );

@@ -21,7 +21,7 @@ const PostPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredPosts.length > 0 ? (
                     filteredPosts.map(post => (
-                        <PostCard post={post} key={post.id} />
+                        <PostCard post={post} key={post.id} showShortComment={true} />
                     ))
                 ) : (
                     <p className="col-span-full text-center text-gray-500">No posts found.</p>
