@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import posts from '../data';
+import postData from '../data';
 import UserInfo from '../components/user_profile/UserInfo';
 import PostCard from '../components/post_comp/PostCard';
 import { FaEdit, FaRegTrashAlt } from "react-icons/fa";
@@ -8,14 +8,29 @@ import UpdatePostModel from '../components/post_comp/UpdatePostModel';
 const Profile = () => {
 
     const [openUpdateModel, setOpenUpdateModel] = useState(false);
-    const [updatePost, setUpdatePost] = useState([]);
-
+    const [selectedPost, setSelectedPost] = useState(null);
+    const [posts, setPosts] = useState(postData)
 
     // handle update post
     const handleUpdatePost = (post) => {
         setOpenUpdateModel(true);
-        setUpdatePost(post);
+        setSelectedPost(post);
     };
+
+    //Function to update post
+    const updatePostFunc = (updatedPost) => {
+        setPosts((prevPosts) =>
+
+            prevPosts.map((post) =>
+                post.id === updatedPost.id ? updatedPost : post
+            )
+        );
+        setOpenUpdateModel(false)
+    }
+
+
+
+
     return (
         <div className="px-4 md:px-0 pb-10">
             {/* user info */}
@@ -40,7 +55,8 @@ const Profile = () => {
             {openUpdateModel && (
                 <UpdatePostModel
                     setOpenUpdateModel={setOpenUpdateModel}
-                    updatePost={updatePost}
+                    selectedPost={selectedPost}
+                    updatePostFunc={updatePostFunc}
                 />
             )}
         </div>
