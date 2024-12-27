@@ -18,7 +18,7 @@ const UpdatePostModel = ({ setOpenUpdateModel, selectedPost, updatePostFunc }) =
             img,
             category,
         };
-        updatePostFunc(updatedPost); // استدعاء دالة التحديث
+        updatePostFunc(updatedPost);
     };
 
 

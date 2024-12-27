@@ -4,6 +4,8 @@ import UserInfo from '../components/user_profile/UserInfo';
 import PostCard from '../components/post_comp/PostCard';
 import { FaEdit, FaRegTrashAlt } from "react-icons/fa";
 import UpdatePostModel from '../components/post_comp/UpdatePostModel';
+// import swal
+import swal from 'sweetalert';
 
 const Profile = () => {
 
@@ -28,6 +30,28 @@ const Profile = () => {
         setOpenUpdateModel(false)
     }
 
+    // handel delete post
+    const handleDeletePost = (id) => {
+        swal({
+            title: "Are you sure?",
+            text: "Once this post is deleted, it cannot be recovered!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((isOk) => {
+                if (isOk) {
+                    // delete operation
+                    setPosts((prevPosts) =>
+                        prevPosts.filter((post) => post.id !== id)
+                    );
+                    swal("The post has been successfully deleted.", {
+                        icon: "success",
+                    });
+                }
+            });
+    }
+
 
 
 
@@ -47,7 +71,10 @@ const Profile = () => {
                                 size={20}
                                 className="text-green-500 cursor-pointer"
                             />
-                            <FaRegTrashAlt size={20} className="text-red-500 cursor-pointer" />
+                            <FaRegTrashAlt
+                                onClick={() => handleDeletePost(post.id)}
+                                size={20}
+                                className="text-red-500 cursor-pointer" />
                         </div>
                     </div>
                 ))}
