@@ -22,8 +22,7 @@ const PostDetail = () => {
         return <div className="text-center mt-5">Post not found</div>;
     }
 
-
-    // handel comment
+    // Yorum ekleme işlevi
     const handleComment = (e) => {
         e.preventDefault();
         if (textComment.trim() !== '') {
@@ -34,14 +33,21 @@ const PostDetail = () => {
                 userId: 1,
                 postId: post.id,
             };
-            setComments((prevComments) => [...prevComments, newComment]);
+            setComments((prevComments) => [...prevComments, newComment]); // Yeni yorumu mevcut yorumlar listesine ekliyoruz
             setCommentModel(false);
             setTextComment('');
             toast.success("The post was commented on.")
-            // send to server
-            console.log(newComment);
 
+            console.log(newComment);
         }
+    };
+
+    // Yorum güncelleme işlevi
+    const handleUpdateComment = (commentId, updatedContent) => { // Yorum id'si ve güncellenmiş içeriği alıyoruz
+        const updatedComments = comments.map(comment => // Yorumlar üzerinde dolaşıyoruz
+            comment.id === commentId ? { ...comment, content: updatedContent } : comment // Eğer id eşleşiyorsa içeriği güncelliyoruz
+        );
+        setComments(updatedComments); // Güncellenmiş yorumlar listesiyle state'i güncelliyoruz
     };
 
     // handel like
@@ -97,11 +103,14 @@ const PostDetail = () => {
             }
             {/* conmment list */}
             <div className="px-4">
-                <CommentList comments={comments} />
+                <CommentList
+                    comments={comments}
+                    onUpdateComment={handleUpdateComment}
+                />
             </div>
 
         </div>
     )
 }
 
-export default PostDetail;
+export default PostDetail; 
