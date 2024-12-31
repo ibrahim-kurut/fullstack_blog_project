@@ -56,6 +56,13 @@ const PostDetail = () => {
         toast.success("The post was liked.");
     }
 
+
+    // handel delete comment
+    const handleDeleteComment = (commentId) => {
+        const deleteComnt = comments.filter(comment => comment.id !== commentId);
+        setComments(deleteComnt);
+    }
+
     return (
         <div className="container mx-auto">
             {/* post detail card */}
@@ -106,6 +113,7 @@ const PostDetail = () => {
                 <CommentList
                     comments={comments}
                     onUpdateComment={handleUpdateComment}
+                    onDeleteComment={handleDeleteComment}
                 />
             </div>
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { MdEditSquare, MdDelete } from "react-icons/md";
-
-const CommentList = ({ comments, onUpdateComment }) => {
+import swal from 'sweetalert';
+const CommentList = ({ comments, onUpdateComment, onDeleteComment }) => {
     const [selectedComment, setSelectedComment] = useState(null);
     const [updatedContent, setUpdatedContent] = useState('');
 
@@ -14,6 +14,33 @@ const CommentList = ({ comments, onUpdateComment }) => {
         onUpdateComment(selectedComment, updatedContent); // Use the update function coming from the parent
         setSelectedComment(null);
         setUpdatedContent('');
+    };
+
+    // handel delete comment
+    const handleDeleteComment = (id) => {
+        swal({
+            title: "Are you sure",
+            text: `delete this comment ?`,
+            icon: "warning",
+            buttons: {
+                cancel: "No",
+                confirm: {
+                    text: "Yes",
+                    value: true,
+                    visible: true,
+                    className: "btn-danger",
+                    closeModal: true
+                }
+            },
+            dangerMode: true,
+        })
+            .then((isOk) => {
+                if (isOk) {
+                    swal("Deleted!", "Your comment was deleted", "success");
+                    // Call the delete function
+                    onDeleteComment(id);
+                }
+            });
     };
 
     return (
@@ -62,8 +89,11 @@ const CommentList = ({ comments, onUpdateComment }) => {
                             >
                                 <MdEditSquare />
                             </p>
-                            <p className="text-red-700 cursor-pointer">
+                            <p
+                                onClick={() => handleDeleteComment(comment.id)}
+                                className="text-red-700 cursor-pointer">
                                 <MdDelete />
+
                             </p>
                         </div>
                     </div>
