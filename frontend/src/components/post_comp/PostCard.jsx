@@ -19,7 +19,7 @@ const PostCard = ({ post, showShortComment }) => {
             </div>
 
             {/* Responsive image */}
-            <Link to={`/post/${post?.id}`} className="img rounded w-full h-full flex justify-center mb-4">
+            <Link to={`/post/${post?.id}`} className="img rounded w-full h-1/2 flex justify-center mb-4">
                 <img
                     src={post?.image}
                     alt={post?.title}

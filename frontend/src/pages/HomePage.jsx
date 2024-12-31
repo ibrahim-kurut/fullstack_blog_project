@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import HomeBanner from '../components/HomeBanner';
 
 const HomePage = () => {
@@ -9,7 +8,7 @@ const HomePage = () => {
             <div className="container mx-auto px-4 py-8">
                 {/* Highlights Section */}
                 <section className="text-center my-12">
-                    <h2 className="text-3xl md:text-5xl font-bold text-gray-800">Explore Our Highlights</h2>
+                    <h2 className="text-3xl md:text-5xl font-bold">Explore Our Highlights</h2>
                     <p className="text-gray-600 mt-4 text-lg md:text-xl max-w-2xl mx-auto">
                         Discover trending topics, inspiring stories, and curated insights just for you.
                     </p>
@@ -58,11 +57,6 @@ const HomePage = () => {
                                 <div className="p-4">
                                     <h4 className="text-lg font-bold text-gray-800">{article.title}</h4>
                                     <p className="text-gray-600 mt-2">{article.desc}</p>
-                                    <Link
-                                        to="/articles"
-                                        className="inline-block mt-4 text-blue-600 hover:underline">
-                                        Read More →
-                                    </Link>
                                 </div>
                             </div>
                         ))}
