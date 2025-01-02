@@ -1,7 +1,13 @@
 import React, { useState } from 'react'
 import { FaCamera } from "react-icons/fa";
 import { toast } from 'react-toastify';
+import { FaEdit } from "react-icons/fa";
+
 const UserInfo = () => {
+    const [userName, setUserName] = useState("user name");
+    const [bio, setBio] = useState("Lorem ipsum dolor sit amet consectetur");
+    const [openUpdateModel, setOpenUpdateModel] = useState(false);
+
 
 
     const [file, setFile] = useState(null)
@@ -11,6 +17,19 @@ const UserInfo = () => {
         e.preventDefault();
         if (!file) return toast.warning(("Please select a photo"))
         console.log("Form submitted");
+    }
+
+    // update user info
+    const updateUserInfo = (e) => {
+        e.preventDefault();
+        // validation
+        if (!userName) return toast.warning(("Please enter your name"))
+        if (userName.trim().length < 3) return toast.warning(("The user name must not be less than 3 letters."))
+        if (!bio) return toast.warning(("Please enter your bio"))
+
+        setOpenUpdateModel(false)
+        toast.success("user info updated successfully")
+
     }
 
 
@@ -53,10 +72,68 @@ const UserInfo = () => {
                 </form>
 
 
-                <h1 className={`text-2xl`}>user name</h1>
-                <h3 className={`text-center`}>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae quidem labore odit, iste quod error.iste quod error
-                </h3>
+                {
+                    openUpdateModel ?
+                        (
+
+                            <form onSubmit={updateUserInfo}>
+                                <div className="flex flex-col capitalize justify-between w-96">
+                                    <label className="capitalize" htmlFor="name">Name:</label>
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        name="name"
+                                        className="bg-transparent border border-gray-600 rounded p-1"
+                                        value={userName}
+                                        onChange={(e) => setUserName(e.target.value)}
+                                    />
+                                    <label className="capitalize" htmlFor="bio">Bio:</label>
+                                    <textarea
+                                        id="bio"
+                                        name="bio"
+                                        className="bg-transparent border border-gray-600 rounded p-1"
+                                        value={bio}
+                                        onChange={(e) => setBio(e.target.value)}
+                                    />
+                                </div>
+                                <button
+                                    type="submit"
+                                    className='bg-blue-500 hover:bg-blue-600 px-2 py-1 mt-1 rounded'
+                                >
+                                    save
+                                </button>
+                                <button
+                                    type="submit"
+                                    className='bg-red-500 hover:bg-red-600 px-2 py-1 mt-1 rounded ml-3'
+                                    onClick={() => setOpenUpdateModel(false)}
+                                >
+                                    close
+                                </button>
+
+                            </form>
+                        )
+                        :
+                        (
+                            <>
+                                <h1 className={`text-2xl`}>
+                                    {userName}
+                                </h1>
+                                <h3 className={`text-center`}>
+                                    {bio}
+                                </h3>
+                            </>
+                        )
+                }
+
+
+
+
+
+
+
+            </div>
+            <div className="flex justify-end mb-3 cursor-pointer text-green-500">
+                <FaEdit onClick={() => setOpenUpdateModel(true)} size={25} />
             </div>
         </div>
     )

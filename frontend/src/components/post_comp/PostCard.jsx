@@ -12,7 +12,7 @@ const PostCard = ({ post, showShortComment }) => {
         return words.length > 10 ? words.slice(0, 10).join(' ') + ' ...' : content;
     };
     return (
-        <div key={post?.id} className="flex flex-col items-center border border-gray-600 rounded-lg p-4 shadow-sm mb-5 w-full max-w-xl">
+        <div key={post?.id} className="flex flex-col items-center border border-gray-600 rounded-lg p-4 shadow-sm mb-5 w-full">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center sm:space-x-4 mb-2 w-full">
                 <p className="bg-blue-500 py-1 px-4 rounded mb-2 sm:mb-0">author: {post?.username}</p>
                 <p className="bg-blue-500 py-1 px-4 rounded">{post?.category_name}</p>
