@@ -11,6 +11,7 @@ import PostDetail from './pages/PostDetail';
 import { ToastContainer } from 'react-toastify';
 import SignUp from './pages/SignUp';
 import Profile from './pages/Profile';
+import AddPost from './pages/AddPost';
 
 
 function App() {
@@ -37,6 +38,7 @@ function Main() {
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/posts" element={<PostPage />} />
+          <Route path="/add-post" element={<AddPost />} />
           <Route path="/post/:id" element={<PostDetail />} />
           <Route path="/login" element={<LoginPage color={color} />} />
           <Route path="/signup" element={<SignUp />} />

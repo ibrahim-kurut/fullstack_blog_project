@@ -2,7 +2,10 @@ import React, { useState } from 'react'
 import { FaCamera } from "react-icons/fa";
 import { toast } from 'react-toastify';
 import { FaEdit } from "react-icons/fa";
-
+import { IoMdAddCircleOutline } from "react-icons/io";
+import { Link } from 'react-router-dom';
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
 const UserInfo = () => {
     const [userName, setUserName] = useState("user name");
     const [bio, setBio] = useState("Lorem ipsum dolor sit amet consectetur");
@@ -70,7 +73,23 @@ const UserInfo = () => {
                         Upload
                     </button>
                 </form>
-
+                <div className="flex justify-end items-center w-full">
+                    <Link
+                        to="/add-post"
+                        className="text-blue-500"
+                        data-tooltip-id="add-post-tooltip"
+                        data-tooltip-content="Add a new post"
+                    >
+                        <IoMdAddCircleOutline
+                            className="hover:animate-spin"
+                            size={30} />
+                    </Link>
+                    <Tooltip
+                        id="add-post-tooltip"
+                        place="top"
+                        style={{ backgroundColor: "rgb(50, 130, 246)", color: "#fff" }}
+                    />
+                </div>
 
                 {
                     openUpdateModel ?
