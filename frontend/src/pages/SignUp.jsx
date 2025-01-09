@@ -1,23 +1,31 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
+import { useDispatch } from 'react-redux';
+import { register } from '../redux/Slices/userSlice';
 
 const SignUp = () => {
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+
+
     const formik = useFormik({
         initialValues: {
-            firstName: "",
-            lastName: "",
+            first_name: "",
+            last_name: "",
             email: "",
             password: "",
-            rePassword: "",
+            re_password: "",
         },
         validationSchema: Yup.object({
-            firstName: Yup.string()
+            first_name: Yup.string()
                 .min(2, "The first name should not be less than 2 letters")
                 .required("First name is required"),
-            lastName: Yup.string().required("Last name is required"),
+            last_name: Yup.string().required("Last name is required"),
             email: Yup.string()
                 .email("Invalid email format")
                 .required("Email is required"),
@@ -28,14 +36,23 @@ const SignUp = () => {
                     "Password must contain at least one uppercase letter, one lowercase letter, and one number"
                 )
                 .required("Password is required"),
-            rePassword: Yup.string()
+            re_password: Yup.string()
                 .oneOf([Yup.ref("password"), null], "Passwords do not match!")
                 .required("Confirm password is required"),
         }),
         onSubmit: (values) => {
             // Handle form submission logic
             console.log(values);
-            toast.success("Account created successfully!");
+            // Send the data to the server
+            dispatch(register(values))
+                .unwrap()
+                .then(() => {
+                    toast.success("Registration successful");
+                    navigate('/login');
+                })
+                .catch((error) => {
+                    toast.error(error.message);
+                });
         },
     });
 
@@ -48,45 +65,45 @@ const SignUp = () => {
                 <form onSubmit={formik.handleSubmit}>
                     <div className="mb-4">
                         <label
-                            htmlFor="firstName"
+                            htmlFor="first_name"
                             className="block text-sm font-medium text-gray-700"
                         >
                             First Name
                         </label>
                         <input
                             type="text"
-                            id="firstName"
-                            className={`text-black mt-1 p-2 w-full border ${formik.touched.firstName && formik.errors.firstName
+                            id="first_name"
+                            className={`text-black mt-1 p-2 w-full border ${formik.touched.first_name && formik.errors.first_name
                                 ? "border-red-500"
                                 : "border-gray-300"
                                 } rounded-md focus:ring-blue-500 focus:border-blue-500`}
                             placeholder="Enter your first name"
-                            {...formik.getFieldProps("firstName")}
+                            {...formik.getFieldProps("first_name")}
                         />
-                        {formik.touched.firstName && formik.errors.firstName ? (
-                            <p className="text-red-500 text-sm mt-1">{formik.errors.firstName}</p>
+                        {formik.touched.first_name && formik.errors.first_name ? (
+                            <p className="text-red-500 text-sm mt-1">{formik.errors.first_name}</p>
                         ) : null}
                     </div>
 
                     <div className="mb-4">
                         <label
-                            htmlFor="lastName"
+                            htmlFor="last_name"
                             className="block text-sm font-medium text-gray-700"
                         >
                             Last Name
                         </label>
                         <input
                             type="text"
-                            id="lastName"
-                            className={`text-black mt-1 p-2 w-full border ${formik.touched.lastName && formik.errors.lastName
+                            id="last_name"
+                            className={`text-black mt-1 p-2 w-full border ${formik.touched.last_name && formik.errors.last_name
                                 ? "border-red-500"
                                 : "border-gray-300"
                                 } rounded-md focus:ring-blue-500 focus:border-blue-500`}
                             placeholder="Enter your last name"
-                            {...formik.getFieldProps("lastName")}
+                            {...formik.getFieldProps("last_name")}
                         />
-                        {formik.touched.lastName && formik.errors.lastName ? (
-                            <p className="text-red-500 text-sm mt-1">{formik.errors.lastName}</p>
+                        {formik.touched.last_name && formik.errors.last_name ? (
+                            <p className="text-red-500 text-sm mt-1">{formik.errors.last_name}</p>
                         ) : null}
                     </div>
 
@@ -136,23 +153,23 @@ const SignUp = () => {
 
                     <div className="mb-6">
                         <label
-                            htmlFor="rePassword"
+                            htmlFor="re_password"
                             className="block text-sm font-medium text-gray-700"
                         >
                             Confirm Password
                         </label>
                         <input
                             type="password"
-                            id="rePassword"
-                            className={`text-black mt-1 p-2 w-full border ${formik.touched.rePassword && formik.errors.rePassword
+                            id="re_password"
+                            className={`text-black mt-1 p-2 w-full border ${formik.touched.re_password && formik.errors.re_password
                                 ? "border-red-500"
                                 : "border-gray-300"
                                 } rounded-md focus:ring-blue-500 focus:border-blue-500`}
                             placeholder="Confirm your password"
-                            {...formik.getFieldProps("rePassword")}
+                            {...formik.getFieldProps("re_password")}
                         />
-                        {formik.touched.rePassword && formik.errors.rePassword ? (
-                            <p className="text-red-500 text-sm mt-1">{formik.errors.rePassword}</p>
+                        {formik.touched.re_password && formik.errors.re_password ? (
+                            <p className="text-red-500 text-sm mt-1">{formik.errors.re_password}</p>
                         ) : null}
                     </div>
 

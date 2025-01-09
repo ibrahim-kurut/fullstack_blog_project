@@ -13,13 +13,16 @@ import SignUp from './pages/SignUp';
 import Profile from './pages/Profile';
 import AddPost from './pages/AddPost';
 
+import { Provider } from 'react-redux';
+import store from './redux/store';
+
 
 function App() {
   return (
-    <>
+    <Provider store={store}>
       <ToastContainer theme="colored" />
       <Main />
-    </>
+    </Provider>
   );
 }
 
