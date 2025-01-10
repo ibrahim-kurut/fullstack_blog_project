@@ -3,13 +3,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../redux/Slices/userSlice';
 
 const SignUp = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const { user } = useSelector(state => state.user)
 
 
 
@@ -41,13 +43,11 @@ const SignUp = () => {
                 .required("Confirm password is required"),
         }),
         onSubmit: (values) => {
-            // Handle form submission logic
-            console.log(values);
             // Send the data to the server
             dispatch(register(values))
                 .unwrap()
                 .then(() => {
-                    toast.success("Registration successful");
+                    toast.success(`${user?.message.message}`);
                     navigate('/login');
                 })
                 .catch((error) => {

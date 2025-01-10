@@ -1,10 +1,22 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../redux/Slices/userSlice';
+
 const LoginPage = () => {
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { user } = useSelector((state) => state.user);
+
+    console.log(user);
+
+
+
     const formik = useFormik({
         initialValues: {
             username: "",
@@ -20,7 +32,15 @@ const LoginPage = () => {
         }),
         onSubmit: (values) => {
             // Handle form submission logic
-            toast.success(`Welcome, ${values.username}!`);
+            dispatch(login(values))
+                .unwrap()
+                .then(() => {
+                    toast.success("Login successful")
+                    navigate('/')
+                })
+                .catch((error) => {
+                    toast.error(`Login failed: ${error}`);
+                });
         },
     });
 
