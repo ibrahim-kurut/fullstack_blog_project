@@ -1,8 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PostCard from '../components/post_comp/PostCard';
-import posts from '../data'
+// import posts from '../data'
 import FilterPost from '../components/post_comp/FilterPost';
+
+import { useDispatch, useSelector } from "react-redux";
+import { getAllPosts } from "../redux/Slices/postSlice";
 const PostPage = () => {
+
+    const dispatch = useDispatch()
+    const { posts } = useSelector((state) => state.posts);
+    // console.log(posts);
+
+    useEffect(() => {
+        dispatch(getAllPosts());
+    }, [dispatch])
+
+
 
     const [searchQuery, setSearchQuery] = useState('');
 
