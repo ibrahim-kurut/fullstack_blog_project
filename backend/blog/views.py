@@ -52,6 +52,18 @@ class PostViewSet(ModelViewSet):
     # Automatically assign the owner who created the post.
         serializer.save(user=self.request.user)
 
+# =================================================================
+# مسار جديد لعرض بوستات المستخدم فقط
+class UserPostsViewSet(ModelViewSet):
+    serializer_class = PostSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    pagination_class = SmallPagination
+
+    def get_queryset(self):
+        # جلب المستخدم الحالي من الطلب وعرض البوستات الخاصة به فقط
+        user = self.kwargs.get('user_id')
+        return Post.objects.filter(user_id=user).order_by('-id')
+# =================================================================
 
 
 class CommentViewSet(ModelViewSet):
